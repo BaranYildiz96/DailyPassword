@@ -52,7 +52,9 @@
 <h2 valign="center" style="text-align:center;" id="clock"></h2>
 <h1 class="center" style="text-align:center;" >{{ message }}</h1>
 <div class="center">
-<input type="password" id="sifre" v-model="sifrem" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{7,}" placeholder="Example:Admin1612" >
+<input type="text" id="username" v-model="username" style="width:230px" placeholder="Username"></div>
+<div class="center">
+<input type="password" id="sifre" v-model="sifrem" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{7,}" style="width:230px" placeholder="Password (Example:Admin1623)">
 </div>
 <p></p>
 <div class="center">
@@ -66,6 +68,7 @@
 <p></p>
 <h2 id="resultx" style="text-align:center;" >{{ result }}</h2>
 
+<h2 id="resulty" style="text-align:center;" >{{ result2 }}</h2>
 </div>	  	  
     </div>	
 	
@@ -94,18 +97,25 @@ var myObject = new Vue({
   el: '#app',
   data: {  
   message: 'Enter the password',
+  username:'',
   sifrem:'',
   caspmessage:'WARNING! Caps lock is ON',
-  result:''},
+  result:'',
+  result2:''},
   methods: {
   Kabul: function() { 
   if(this.sifrem == "Admin"+today.getHours()+ today.getMinutes()){
-   this.result ="Password accepted!"}
+   this.result = "Password accepted!";
+   this.result2 = "Welcome "+ this.username;
+   if(this.username == ""){
+    this.result2 = "Welcome [Unidentified User]";
+	}
+   }
   else if(this.sifrem !=="") {
      alert("Wrong password!");}
   else{
-     alert("You did not enter any password!");} 
-    } , 
+     alert("You did not enter any password!");} 	 
+    },	
   Kontrol: function(){
     var x = document.getElementById("sifre");
     if (x.type === "password") {
@@ -133,7 +143,7 @@ if (event.getModifierState("CapsLock")) {
 });
 
 var myInput = document.getElementById("sifre");
-var letter = document.getElementById("letter");
+
 var capital = document.getElementById("capital");
 var number = document.getElementById("number");
 var length = document.getElementById("length");
@@ -222,7 +232,14 @@ myInput.onkeyup = function() {
 		    height:50px;
 		    color:blue;
 			
-		}		
+		}	
+		
+		#resulty{
+		    margin-top:50px;
+		    height:40px;
+		    color:green;
+			
+		}	
 					
 		#CAPS {		    
 		    display:none;
